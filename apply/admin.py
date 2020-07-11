@@ -7,7 +7,8 @@ from .models import Members
 class MemberAdmin(admin.ModelAdmin):
     list_display = ('name', 'birth_date', 
                     'address', 'country_residence', 'occupation',
-                    'nationality', 'phone_number', 'email', 'member_level')
+                    'nationality', 'phone_number', 'email', 'member_level',
+                    'is_member_staff')
     list_filter = ['name']
     search_fields = ['name']
 

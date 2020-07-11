@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     
 
-    <title>4050특위 {% block title %} {% endblock %}</title>
+    <title>4050특별위원회 {% block title %} {% endblock %}</title>
 
 
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
 </head>
 <body>
     
- <nav class="navbar is-info" role="navigation" aria-label="main navigation">
+ <nav class="navbar is-info is-fixed-top" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
     <a class="navbar-item" href="#">
       <img src="{% static 'logo.png' %}">
@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
     <div class="navbar-end">
       <div class="navbar-item">
         <div class="buttons">
-          <a class="button is-primary">
+          <a class="button is-primary" href="{% url 'application' %}">
             <strong>4050 자문위원회 신청서</strong>
           </a>
           <a class="button is-warning">

@@ -1,9 +1,22 @@
 {% extends 'base.html' %}
-
+{% load static %}
 
 {% block title %} {% endblock %}
 
 {% block head %} {% endblock %}
 
 
-{% block content %} {% endblock %}
+{% block content %} 
+
+
+<div class="columns has-text-centered is-vcentered" style="margin-top: 20px;">
+     <div class="column is-1"></div>
+     <div class="column is-10">
+     <img src="{% static 'main.jpeg' %}" width="90%">
+     <a href="#" class="button is-info" style="margin-top: 20px;">특별 위원회 가입하기 </a>
+     </div>
+     <div class="column is-1"></div>
+    </div>  
+
+
+{% endblock %}

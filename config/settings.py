@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'community',
     'policy_suggestion',
     'resources',
+
+    'django_countries',
 ]
 
 MIDDLEWARE = [

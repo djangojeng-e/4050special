@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %} 가입 신청서 {% endblock %}
+
+{% block head %} 
+
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+    <script src="{% static 'jquery/niceCountryInput.js' %}"></script>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'jquery/niceCountryInput.css' %}">
+
+
+
+
+{% endblock %}
+
+
+{% block content %} 
+
+<div class="columns has-text-centered is-vcentered" style="margin-top: 20px;">
+     <div class="column is-1"></div>
+     <div class="column is-10">
+     <h1 class="is-size-2 has-text-primary">더불어민주당 <br>4050 특별위원회<br> 해외청년 자문위원회 신청하세요.</h1>
+     <hr>
+     
+     </div>
+     <div class="column is-1"></div>
+    </div>  
+
+
+
+<div class="columns is-vcentered" style="margin-top: 20px;">
+     <div class="column is-3"></div>
+     <div class="column is-6">
+
+<form action="{% url 'application' %}" method="POST">
+     {% csrf_token %}
+
+    {% for field in form %}  
+
+    {% if field.name == 'country_residence' or field.name == 'nationality' or field.name == 'nationality_country' %}
+
+
+<div class="field">
+  <label class="label">
+  {{field.label}} 
+  </label>
+  <div class="control">
+    <div class="select" id="selection">
+      {{ field }}
+    </div>
+  </div>
+</div>
+  {% elif field.name == 'email' %}
+
+  <div class="field">
+      <label class="label"> {{ field.label }} </label>
+      <div class="control">
+      <div class="control has-icons-left has-icons-right">
+      <input type="email" name="email" class="input" placeholder="이메일을 입력해주세요" required id="id_email">
+        <span class="icon is-small is-left">
+       <i class="fas fa-envelope"></i>
+        </span>
+      </div>
+      </div>
+     </div>  
+
+    {% else %}
+     <div class="field">
+      <label class="label"> {{ field.label }} 
+      {% if form.errors %} 
+      {% for error in field.errors %}
+      <span class="has-text-danger">* {{ error|escape }} </span> 
+      {% endfor %}
+      {% endif %}
+      </label>
+      <div class="control">
+      {{ field }}
+      </div>
+     </div>  
+     {% endif %}
+  {% endfor %}
+  
+
+<div class="field is-grouped is-grouped-centered" style="margin-top:25px">
+  <div class="control">
+    <label class="checkbox">
+      <input type="checkbox" id="terms_and_conditions">
+      개인정보 및 가입 동의에 동의합니다. <a href="#">개인정보 및 가입동의 보기</a>
+    </label>
+  </div>
+</div>
+
+
+<div class="field is-grouped is-grouped-centered" style="margin-top: 20px;">
+
+  
+  <div class="control">
+    <button class="button is-link">가입 신청</button>
+  </div>
+  <div class="control">
+    
+    <a href="{% url 'index' %}">
+    <button class="button is-link is-light">취소하기</button>
+    </a>
+  </div>
+  </form>
+</div>
+     </div>
+     <div class="column is-3"></div>
+    </div>   
+
+
+</form>
+
+
+
+{% endblock %}
