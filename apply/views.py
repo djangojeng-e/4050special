@@ -37,7 +37,10 @@ def application(request):
             print(re_password)
 
             try:
-                new_member = Members(name=name, birth_date=birth_date, address=address,
+                if Members.objects.get(email=email):
+                    return HttpResponse('<script>alert("이미 존재하는 이메일입니다."); window.location.href="/application";</script>')
+                else:
+                    new_member = Members(name=name, birth_date=birth_date, address=address,
                                     country_residence=country_residence,
                                     occupation=occupation,
                                     nationality=nationality,
@@ -47,9 +50,9 @@ def application(request):
                                     email=email,
                                     member_level=member_level,
                                     password=password)
-                new_member.save()
+                    new_member.save()
             except: 
-                return HttpResponse('잘안됬습니다')
+                return HttpResponse('문제가 생겼습니다.')
     else:
         form = ApplyForm()
     return render(request, 'apply/application.html', {'form': form}) 
