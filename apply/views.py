@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .forms import ApplyForm
+from .models import Members
+from django.contrib.auth.hashers import make_password
 
 # Create your views here.
 
@@ -26,9 +28,28 @@ def application(request):
             email = form.cleaned_data['email']
             member_level = form.cleaned_data['member_level']
             password = form.cleaned_data['password']
+            re_password = form.cleaned_data['re_password']
+            password = make_password(password)
             print(name, birth_date, address, country_residence, occupation, nationality, nationality_country, phone_country_code, phone_number)
             print(email, member_level, password)
-            return HttpResponse('잘됬습니다')
+            agreement = form.cleaned_data['agreement']
+            print(agreement)
+            print(re_password)
+
+            try:
+                new_member = Members(name=name, birth_date=birth_date, address=address,
+                                    country_residence=country_residence,
+                                    occupation=occupation,
+                                    nationality=nationality,
+                                    nationality_country=nationality_country,
+                                    phone_country_code=phone_country_code,
+                                    phone_number=phone_number,
+                                    email=email,
+                                    member_level=member_level,
+                                    password=password)
+                new_member.save()
+            except: 
+                return HttpResponse('잘안됬습니다')
     else:
         form = ApplyForm()
     return render(request, 'apply/application.html', {'form': form}) 
@@ -46,3 +67,7 @@ def registration(request):
     print(name, username, email, country_residence, selection)
     print(message, yes, no)
     return HttpResponse(f'{name}, {username}, {email}, {country_residence}, {selection}, {message}, {yes}, {no}')
+
+
+def terms_and_conditions(request):
+    return render(request, 'apply/terms_and_conditions.html')

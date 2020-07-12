@@ -101,6 +101,6 @@ class ApplyForm(forms.Form):
     required=False, initial='없음', 
     widget=forms.Select(attrs={'class': 'input', 'placeholder': '당원 여부를 선택해주세요', 'id':'selection'}))
 
-    
-
-        
+    agreement = forms.BooleanField(required=True,
+    error_messages={'required': '개인정보 및 가입동의서에 동의해주세요'},
+    widget=forms.CheckboxInput(attrs={'type': 'checkbox'}))

@@ -6,20 +6,13 @@
 
 {% block head %} 
 
-<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
-    <script src="{% static 'jquery/niceCountryInput.js' %}"></script>
-
-    <link rel="stylesheet" type="text/css" href="{% static 'jquery/niceCountryInput.css' %}">
-
-
-
 
 {% endblock %}
 
 
 {% block content %} 
 
-<div class="columns has-text-centered is-vcentered" style="margin-top: 20px;">
+<div class="columns has-text-centered is-vcentered" style="margin-top:70px;">
      <div class="column is-1"></div>
      <div class="column is-10">
      <h1 class="is-size-2 has-text-primary">더불어민주당 <br>4050 특별위원회<br> 해외청년 자문위원회 신청하세요.</h1>
@@ -31,7 +24,7 @@
 
 
 
-<div class="columns is-vcentered" style="margin-top: 20px;">
+<div class="columns is-vcentered" style="margin-top: 10px;">
      <div class="column is-3"></div>
      <div class="column is-6">
 
@@ -52,7 +45,22 @@
       {{ field }}
     </div>
   </div>
+</div>    
+
+  {% elif field.name == 'agreement' %}
+
+
+
+<div class="field is-grouped is-grouped-centered" style="margin-top:40px">
+  <div class="control">
+    <label class="checkbox">
+      {{ field }}  개인정보 및 가입 동의에 동의합니다. <a href="{% url 'terms_and_conditions' %}">개인정보 및 가입동의 보기</a> 
+    </label>
+  </div>
 </div>
+
+
+
   {% elif field.name == 'email' %}
 
   <div class="field">
@@ -84,17 +92,9 @@
   {% endfor %}
   
 
-<div class="field is-grouped is-grouped-centered" style="margin-top:25px">
-  <div class="control">
-    <label class="checkbox">
-      <input type="checkbox" id="terms_and_conditions">
-      개인정보 및 가입 동의에 동의합니다. <a href="#">개인정보 및 가입동의 보기</a>
-    </label>
-  </div>
-</div>
 
 
-<div class="field is-grouped is-grouped-centered" style="margin-top: 20px;">
+<div class="field is-grouped is-grouped-centered" style="margin-top: 30px;">
 
   
   <div class="control">
