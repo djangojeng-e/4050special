@@ -104,3 +104,4 @@ class ApplyForm(forms.Form):
     agreement = forms.BooleanField(required=True,
     error_messages={'required': '개인정보 및 가입동의서에 동의해주세요'},
     widget=forms.CheckboxInput(attrs={'type': 'checkbox'}))
+

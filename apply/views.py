@@ -1,8 +1,10 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, reverse, redirect
+from django.http import HttpResponse, HttpResponseRedirect
 from .forms import ApplyForm
 from .models import Members
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -17,7 +19,6 @@ def application(request):
         if form.is_valid():
             name = form.cleaned_data['name']
             birth_date = form.cleaned_data['birth_date']
-            print(birth_date)
             address = form.cleaned_data['address']
             country_residence = form.cleaned_data['country_residence']
             occupation = form.cleaned_data['occupation']
@@ -29,18 +30,15 @@ def application(request):
             member_level = form.cleaned_data['member_level']
             password = form.cleaned_data['password']
             re_password = form.cleaned_data['re_password']
-            password = make_password(password)
-            print(name, birth_date, address, country_residence, occupation, nationality, nationality_country, phone_country_code, phone_number)
-            print(email, member_level, password)
             agreement = form.cleaned_data['agreement']
-            print(agreement)
-            print(re_password)
-
+            if password != re_password:
+                return HttpResponse('<script>alert("비밀번호가 서로 일치하지 않습니다."); window.history.back();</script>')
+            elif Members.objects.filter(email=email):
+                return HttpResponse('<script>alert("이미 존재하는 이메일입니다."); window.history.back();</script>')
+            else:
+                password = make_password(password)
             try:
-                if Members.objects.get(email=email):
-                    return HttpResponse('<script>alert("이미 존재하는 이메일입니다."); window.location.href="/application";</script>')
-                else:
-                    new_member = Members(name=name, birth_date=birth_date, address=address,
+                new_member = Members(name=name, birth_date=birth_date, address=address,
                                     country_residence=country_residence,
                                     occupation=occupation,
                                     nationality=nationality,
@@ -50,9 +48,19 @@ def application(request):
                                     email=email,
                                     member_level=member_level,
                                     password=password)
-                    new_member.save()
+                new_member.save()
             except: 
-                return HttpResponse('문제가 생겼습니다.')
+                return HttpResponse('문제가 생겼습니다. 사이트 관리자에 문의해주세요.')
+            
+            # 가입 사용자를 생성후 곧바로 로그인 처리 
+            if request.user.is_authenticated:
+                return HttpResponse('이미 로그인 되어 있습니다')
+            else:
+                user = User.objects.create_user(username=email, email=email, password=password)
+                user = authenticate(request, username=email, password=password)
+                if user:
+                    login(request, user)
+                    return redirect('/')
     else:
         form = ApplyForm()
     return render(request, 'apply/application.html', {'form': form}) 
