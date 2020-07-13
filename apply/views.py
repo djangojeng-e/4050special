@@ -76,12 +76,10 @@ def login_view(request):
         if form.is_valid():
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
-            print(email)
-            print(password)
             user = User.objects.get(email=email)
-            print(user)
             username = user.username
-            print(username)
+            member = Members.objects.get(email=email)
+            password = member.password
             user = authenticate(request, username=username, email=email, password=password)
             if user:
                 login(request, user)
@@ -94,11 +92,6 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return HttpResponse('''<script>alert("로그아웃 되었습니다"); window.location.href = "/"; </script>''')
-
-
-
-
-
 
 
 def terms_and_conditions(request):
