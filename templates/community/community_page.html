@@ -10,11 +10,171 @@
 
 {% block content %} 
 
+<h1 class="has-text-link is-size-2 has-text-centered" style="margin-bottom: 50px; margin-top: 100px;">4050특별위원회 소통실</h1>
+
+<!--tabs-->
+
+<div class="columns is-vcentered">
+     <div class="column is-2"></div>
+     <div class="column is-8">
+
+     
 
 
-<img src="{% static 'icons/icon_party.png' %}">
+     <div class="tabs is-centered is-boxed is-small">
+  <ul>
+  <li class="is-active">
+      <a>
+        <span class="icon is-small"><i class="fas fa-bullhorn" aria-hidden="true"></i></span>
+        <span>공지</span>
+      </a>
+    </li>
+    <li class="is-active">
+      <a>
+        <span class="icon is-small"><i class="fas fa-calendar" aria-hidden="true"></i></span>
+        <span>등록일</span>
+      </a>
+    </li>
+    <li>
+      <a>
+        <span class="icon is-small"><i class="fas fa-book" aria-hidden="true"></i></span>
+        <span>조회수</span>
+      </a>
+    </li>
+    <li>
+      <a>
+        <span class="icon is-small"><i class="fas fa-comments" aria-hidden="true"></i></span>
+        <span>댓글</span>
+      </a>
+    </li>
+    <li>
+      <a>
+        <span class="icon is-small"><i class="far fa-thumbs-up" aria-hidden="true"></i></span>
+        <span>좋아요</span>
+      </a>
+    </li>
+  </ul>
+</div>
 
-<img src="{% static 'icons/icon_user.png' %}">
+<!--tabs-->
+
+<article class="media" style="padding-top:10px;">
+  <figure class="media-left">
+    <p class="image is-64x64">
+      <img src="{% static 'icons/icon_party.png' %}">
+    </p>
+  </figure>
+  <div class="media-content">
+    <div class="content">
+      <p>
+        <strong>username 표시 </strong> 
+        <span style="padding-left: 25px;"><small>작성날짜 표시<small>  몇시간전 글인지 표시</small></small> </span>
+        <br>
+        <span>[공지] 200자 타이틀 표시 40자 제한으로 화면 표시-</span> 해당 글이 24시간 이내에 작성되었으면, new icon 표시<span class="icon is-small"> <i class="fas fa-microphone"></i> </span>
+      </p>
+    </div>
+    <nav class="level is-mobile">
+      <div class="level-left">
+        <a class="level-item">
+          <span class="icon is-small"><i class="fas fa-thumbs-up"></i></span>
+        </a>
+        <span>좋아요 갯수 표시</span>
+        <a class="level-item" style="padding-left: 5px;">
+          <span class="icon is-small"><i class="fas fa-thumbs-down"></i></span>
+        </a>
+        <span>싫어요 갯수 표시</span>
+        <a class="level-item" style="padding-left: 5px;">
+          <span class="icon is-small"><i class="fas fa-comments"></i></span>
+        </a>
+        <span>댓글 개수 표시</span>
+
+        <a class="level-item" style="padding-left: 5px;">
+          <span class="icon is-small"><i class="fas fa-book"></i></span>
+        </a>
+        <span>조회수 갯수 표시</span>
+      </div>
+      
+    </nav>
+  </div>
+  
+</article>
+
+
+
+<article class="media" style="padding-top:10px;">
+  <figure class="media-left">
+    <p class="image is-64x64">
+      <img src="{% static 'icons/icon_user.png' %}">
+    </p>
+  </figure>
+  <div class="media-content">
+    <div class="content">
+      <p>
+        <strong>username 표시 </strong> 
+        <span style="padding-left: 25px;"><small>작성날짜 표시<small>  몇시간전 글인지 표시</small></small> </span>
+        <br>
+        <span>[공지] 200자 타이틀 표시 40자 제한으로 화면 표시-</span> 해당 글이 24시간 이내에 작성되었으면, new icon 표시<span class="icon is-small"> <i class="fas fa-microphone"></i> </span>
+      </p>
+    </div>
+    <nav class="level is-mobile">
+      <div class="level-left">
+        <a class="level-item">
+          <span class="icon is-small"><i class="fas fa-thumbs-up"></i></span>
+        </a>
+        <span>좋아요 갯수 표시</span>
+        <a class="level-item" style="padding-left: 5px;">
+          <span class="icon is-small"><i class="fas fa-thumbs-down"></i></span>
+        </a>
+        <span>싫어요 갯수 표시</span>
+        <a class="level-item" style="padding-left: 5px;">
+          <span class="icon is-small"><i class="fas fa-comments"></i></span>
+        </a>
+        <span>댓글 개수 표시</span>
+
+        <a class="level-item" style="padding-left: 5px;">
+          <span class="icon is-small"><i class="fas fa-book"></i></span>
+        </a>
+        <span>조회수 갯수 표시</span>
+      </div>
+      
+    </nav>
+  </div>
+  
+</article>
+
+
+<article class="media">
+  <figure class="media-left">
+    <p class="image is-64x64">
+      <img src="{% static 'icons/icon_user.png' %}">
+    </p>
+  </figure>
+  <div class="media-content">
+    <div class="field">
+      <p class="control">
+        <textarea class="textarea" placeholder="Add a comment..."></textarea>
+      </p>
+    </div>
+    <nav class="level">
+      <div class="level-left">
+        <div class="level-item">
+          <a class="button is-info">등록하기</a>
+        </div>
+      </div>
+      <div class="level-right">
+        <div class="level-item">
+        <a href="{% url 'community_page' %}">
+          <span class="button is-danger is-outlined">취소하기</span>
+        </a>
+        </div>
+      </div>
+    </nav>
+  </div>
+</article>
+
+     </div>
+     <div class="column is-2"></div>
+    </div>  
 
 
 {% endblock %}
