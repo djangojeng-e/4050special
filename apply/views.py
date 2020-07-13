@@ -1,6 +1,6 @@
 from django.shortcuts import render, reverse, redirect
 from django.http import HttpResponse, HttpResponseRedirect
-from .forms import ApplyForm
+from .forms import ApplyForm, LoginForm
 from .models import Members
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth import authenticate, login, logout 
@@ -70,18 +70,35 @@ def application(request):
     return render(request, 'apply/application.html', {'form': form}) 
 
 
-def registration(request): 
-    name = request.POST['name_value', 'None']
-    username = request.POST['username']
-    email = request.POST['email']
-    country_residence = request.POST['country_residence']
-    selection = request.POST['selection']
-    message = request.POST['message']
-    yes = request.POST['yes']
-    no = request.POST['no'] 
-    print(name, username, email, country_residence, selection)
-    print(message, yes, no)
-    return HttpResponse(f'{name}, {username}, {email}, {country_residence}, {selection}, {message}, {yes}, {no}')
+def login_view(request): 
+    if request.method == 'POST': 
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password']
+            print(email)
+            print(password)
+            user = User.objects.get(email=email)
+            print(user)
+            username = user.username
+            print(username)
+            user = authenticate(request, username=username, email=email, password=password)
+            if user:
+                login(request, user)
+                return redirect('/')
+    else:
+        form = LoginForm()
+    return render(request, 'login.html', {'form': form})
+
+
+def logout_view(request):
+    logout(request)
+    return HttpResponse('''<script>alert("로그아웃 되었습니다"); window.location.href = "/"; </script>''')
+
+
+
+
+
 
 
 def terms_and_conditions(request):

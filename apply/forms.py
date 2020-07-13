@@ -105,3 +105,25 @@ class ApplyForm(forms.Form):
     error_messages={'required': '개인정보 및 가입동의서에 동의해주세요'},
     widget=forms.CheckboxInput(attrs={'type': 'checkbox'}))
 
+
+class LoginForm(forms.Form):
+
+    email = forms.EmailField(
+        required=True, 
+        label='이메일을 입력해주세요', 
+        widget=forms.EmailInput(
+            attrs={
+                'type': 'email', 'placeholder': 'e.g. 4050@gmail.com', 'class': 'input'
+
+        })
+    )
+
+    password = forms.CharField(
+        required=True,
+        label="비밀번호를 입력해주세요", 
+        widget=forms.PasswordInput(
+            attrs={
+                'type': 'password', 'placeholder': '*****', 'class': 'input'
+            }
+        )
+    )
