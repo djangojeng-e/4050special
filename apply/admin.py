@@ -4,7 +4,7 @@ from .models import Members
 # Register your models here.
 
 
-class MemberAdmin(admin.ModelAdmin):
+class MembersAdmin(admin.ModelAdmin):
     list_display = ('name', 'birth_date', 
                     'address', 'country_residence', 'occupation',
                     'nationality', 'phone_number', 'email', 'member_level',
@@ -13,4 +13,4 @@ class MemberAdmin(admin.ModelAdmin):
     search_fields = ['name']
 
 
-admin.site.register(Members, MemberAdmin)
+admin.site.register(Members, MembersAdmin)

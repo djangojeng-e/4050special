@@ -3,8 +3,10 @@ from django.http import HttpResponse, HttpResponseRedirect
 from .forms import ApplyForm
 from .models import Members
 from django.contrib.auth.hashers import make_password
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout 
 from django.contrib.auth.models import User
+
+
 
 # Create your views here.
 
@@ -33,7 +35,7 @@ def application(request):
             agreement = form.cleaned_data['agreement']
             if password != re_password:
                 return HttpResponse('<script>alert("비밀번호가 서로 일치하지 않습니다."); window.history.back();</script>')
-            elif Members.objects.filter(email=email):
+            elif Members.objects.filter(email=email).exists():
                 return HttpResponse('<script>alert("이미 존재하는 이메일입니다."); window.history.back();</script>')
             else:
                 password = make_password(password)
@@ -56,8 +58,10 @@ def application(request):
             if request.user.is_authenticated:
                 return HttpResponse('이미 로그인 되어 있습니다')
             else:
-                user = User.objects.create_user(username=email, email=email, password=password)
-                user = authenticate(request, username=email, password=password)
+                create_member = Members.objects.get(email=email)
+                display_name = name + '_' + country_residence + '_' + str(create_member.id)
+                user = User.objects.create_user(username=display_name, email=email, password=password)
+                user = authenticate(request, username=display_name, email=email, password=password)
                 if user:
                     login(request, user)
                     return redirect('/')
