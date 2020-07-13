@@ -22,4 +22,5 @@ urlpatterns = [
     path('', include('apply.urls')),
     path('login/', login_view, name='login_page'),
     path('logout/', logout_view, name='logout_page'),
+    path('community/', include('community.urls')),
 ]
