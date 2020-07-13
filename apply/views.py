@@ -20,6 +20,7 @@ def application(request):
         form = ApplyForm(request.POST)
         if form.is_valid():
             name = form.cleaned_data['name']
+            nick_name = form.cleaned_data['nick_name']
             birth_date = form.cleaned_data['birth_date']
             address = form.cleaned_data['address']
             country_residence = form.cleaned_data['country_residence']
@@ -37,10 +38,12 @@ def application(request):
                 return HttpResponse('<script>alert("비밀번호가 서로 일치하지 않습니다."); window.history.back();</script>')
             elif Members.objects.filter(email=email).exists():
                 return HttpResponse('<script>alert("이미 존재하는 이메일입니다."); window.history.back();</script>')
+            elif Members.objects.filter(nick_name=nick_name).exists():
+                return HttpResponse('<script>alert("이미 존재하는 닉네임 입니다."); window.history.back();</script>')
             else:
                 password = make_password(password)
             try:
-                new_member = Members(name=name, birth_date=birth_date, address=address,
+                new_member = Members(name=name, nick_name=nick_name, birth_date=birth_date, address=address,
                                     country_residence=country_residence,
                                     occupation=occupation,
                                     nationality=nationality,
@@ -58,10 +61,10 @@ def application(request):
             if request.user.is_authenticated:
                 return HttpResponse('이미 로그인 되어 있습니다')
             else:
-                create_member = Members.objects.get(email=email)
-                display_name = name + '_' + country_residence + '_' + str(create_member.id)
-                user = User.objects.create_user(username=display_name, email=email, password=password)
-                user = authenticate(request, username=display_name, email=email, password=password)
+                created_member = Members.objects.get(email=email)
+                nickname = created_member.nick_name
+                user = User.objects.create_user(username=nickname, email=email, password=password)
+                user = authenticate(request, username=nickname, email=email, password=password)
                 if user:
                     login(request, user)
                     return redirect('/')
@@ -79,6 +82,7 @@ def login_view(request):
             user = User.objects.get(email=email)
             username = user.username
             member = Members.objects.get(email=email)
+            username = member.nick_name
             password = member.password
             user = authenticate(request, username=username, email=email, password=password)
             if user:

@@ -9,9 +9,9 @@ class Members(models.Model):
     사용자 모델 
     '''
     name = models.CharField(max_length=50, verbose_name='이름', blank=True)
+    nick_name = models.CharField(max_length=50, verbose_name="닉네임", blank=True)
     birth_date = models.DateField(verbose_name='생년월일', null=True)
     address = models.CharField(max_length=200, verbose_name='주소', blank=True)
-    # country_residence = models.CharField(max_length=50, verbose_name='거주국가', blank=True)
     country_residence = CountryField(verbose_name="거주 국가")
     occupation = models.CharField(max_length=50, verbose_name='직업 및 대표경력', blank=True)
 

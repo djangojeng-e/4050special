@@ -18,6 +18,18 @@ class ApplyForm(forms.Form):
             }
         )
     )
+
+    nick_name = forms.CharField(required=True,  
+        error_messages={
+            'required': '닉네임을 입력해 주세요'
+        },
+        max_length=50, label="사이트에 표시될 닉네임", widget=forms.TextInput(
+            attrs={
+                'class': 'input',
+                'placeholder': '닉네임 (별명) 을 입력해주세요',
+            }
+        )
+    )
     
     birth_date = forms.DateField(required=True,
         error_messages={
