@@ -57,7 +57,9 @@
 </div>
 
 <!--tabs-->
+{% for community_post in community_post %}
 
+{% if community_post.is_announcement %}
 <article class="media" style="padding-top:10px;">
   <figure class="media-left">
     <p class="image is-64x64">
@@ -67,10 +69,10 @@
   <div class="media-content">
     <div class="content">
       <p>
-        <strong>username 표시 </strong> 
-        <span style="padding-left: 25px;"><small>작성날짜 표시<small>  몇시간전 글인지 표시</small></small> </span>
+        <strong>{{ community_post.writer }}</strong> 
+        <span style="padding-left: 25px;"><small>{{ community_post.date_created }}<small> 시간표시</small></small> </span>
         <br>
-        <span>[공지] 200자 타이틀 표시 40자 제한으로 화면 표시-</span> 해당 글이 24시간 이내에 작성되었으면, new icon 표시<span class="icon is-small"> <i class="fas fa-microphone"></i> </span>
+        <span>[공지] {{ community_post.title|truncatechars:30 }}</span> {{ community_post.lapsed_time }} 일전<span class="icon is-small"> <i class="fas fa-microphone"></i> </span>
       </p>
     </div>
     <nav class="level is-mobile">
@@ -78,27 +80,33 @@
         <a class="level-item">
           <span class="icon is-small"><i class="fas fa-thumbs-up"></i></span>
         </a>
-        <span>좋아요 갯수 표시</span>
+        <span>{{ community_post.like_counts }}</span>
         <a class="level-item" style="padding-left: 5px;">
           <span class="icon is-small"><i class="fas fa-thumbs-down"></i></span>
         </a>
-        <span>싫어요 갯수 표시</span>
+        <span>{{ community_post.dislike_counts }}</span>
         <a class="level-item" style="padding-left: 5px;">
           <span class="icon is-small"><i class="fas fa-comments"></i></span>
         </a>
-        <span>댓글 개수 표시</span>
+        <span>{{ community_post.comments_counts }}</span>
 
         <a class="level-item" style="padding-left: 5px;">
           <span class="icon is-small"><i class="fas fa-book"></i></span>
         </a>
-        <span>조회수 갯수 표시</span>
+        <span>{{ community_post.post_views }}</span>
       </div>
       
     </nav>
   </div>
   
 </article>
+{% else %}
 
+
+
+
+{% endif %}
+{% endfor %}
 
 
 <article class="media" style="padding-top:10px;">

@@ -5,11 +5,11 @@ from .models import Members
 
 
 class MembersAdmin(admin.ModelAdmin):
-    list_display = ('name', 'birth_date', 
+    list_display = ('name', 'nick_name', 'birth_date', 
                     'address', 'country_residence', 'occupation',
                     'nationality', 'phone_number', 'email', 'member_level',
                     'is_member_staff')
-    list_filter = ['name']
+    list_filter = ['name', 'nick_name']
     search_fields = ['name']
 
 
