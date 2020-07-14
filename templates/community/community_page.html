@@ -70,9 +70,9 @@
     <div class="content">
       <p>
         <strong>{{ community_post.writer }}</strong> 
-        <span style="padding-left: 25px;"><small>{{ community_post.date_created }}<small> 시간표시</small></small> </span>
+        <span style="padding-left: 40px;"><small>{{ community_post.date_created }}<small class="has-text-info" style="margin-left: 20px;"> {% if community_post.lapsed_time < 24 %} &#9;{{ community_post.lapsed_time }} hours ago (new){% else %}{% endif %}</small></small> </span>
         <br>
-        <span>[공지] {{ community_post.title|truncatechars:30 }}</span> {{ community_post.lapsed_time }} 일전<span class="icon is-small"> <i class="fas fa-microphone"></i> </span>
+        <span>[공지] {{ community_post.title|truncatechars:30 }}</span> <span class="icon is-small"> <i class="fas fa-microphone"></i> </span>
       </p>
     </div>
     <nav class="level is-mobile">

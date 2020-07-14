@@ -24,7 +24,14 @@ class Community_Post(models.Model):
     #     return author_name
 
     def lapsed_time(self):
-        pass
+        date_format = "%m-%d-%Y %H:%M:%S"
+        now = datetime.datetime.now()
+        date_created = self.date_created
+        created_hour = date_created.strftime("%H")
+        now_hour = now.strftime("%H")
+        time_difference = int(now_hour) - int(created_hour)
+        time_difference = abs(time_difference)
+        return time_difference
         
 
     def comments_counts(self):
