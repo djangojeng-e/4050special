@@ -57,4 +57,18 @@ class Comments(models.Model):
 
 
 
+class Likes(models.Model):
+    post = models.ForeignKey(Community_Post, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+
+
+class Dislikes(models.Model):  
+    post = models.ForeignKey(Community_Post, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+
+
+class viewed(models.Model):
+    post = models.ForeignKey(Community_Post, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+
     
