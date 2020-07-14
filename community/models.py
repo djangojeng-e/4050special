@@ -4,6 +4,7 @@ import datetime
 from datetime import timedelta
 from apply.models import Members
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 # Create your models here.
 
@@ -25,7 +26,7 @@ class Community_Post(models.Model):
 
     def lapsed_time(self):
         date_format = "%m-%d-%Y %H:%M:%S"
-        now = datetime.datetime.now()
+        now = timezone.localtime()
         date_created = self.date_created
         created_hour = date_created.strftime("%H")
         now_hour = now.strftime("%H")
