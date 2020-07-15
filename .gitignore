@@ -181,3 +181,4 @@ __pycache__
 
 *.json
 *.sqlite3
+*.sh

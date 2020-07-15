@@ -15,9 +15,6 @@ def community_page(request):
             title = form.cleaned_data['title']
             content = form.cleaned_data['content']
 
-            print(writer)
-            print(author)
-
             post = Community_Post(
                 writer=writer,
                 author=writer,
@@ -25,7 +22,7 @@ def community_page(request):
                 content=content
             )
             post.save()
-            print(content)
+            
             community_post = Community_Post.objects.all()
         else:
             return HttpResponse('에러') 
