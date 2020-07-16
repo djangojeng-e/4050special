@@ -8,15 +8,41 @@
 
 {% block content %} 
 
+<section class="hero is-fullheight is-light">
+<div class="hero-body">
 
-<div class="columns has-text-centered is-vcentered" style="margin-top: 20px;">
-     <div class="column is-1"></div>
-     <div class="column is-10">
-     <img src="{% static 'main.jpeg' %}" width="90%">
-     <a href="{% url 'application' %}" class="button is-info" style="margin-top: 20px;">특별 위원회 가입하기 </a>
-     </div>
-     <div class="column is-1"></div>
-    </div>  
+<div class="container">
 
+
+<div class="tile is-ancestor mt-6">
+  <div class="tile is-4 is-vertical is-parent">
+    <div class="tile is-child box button is-medium is-fullwidth is-primary">
+      <p class="title is-child has-text-white">온라인 가입</p>
+    </div>
+    <div class="tile is-child box button is-medium is-fullwidth is-info">
+      <p class="title has-text-white">소통실</p>
+    </div>
+    <div class="tile is-child box button is-medium is-fullwidth is-link">
+      <p class="title has-text-white">정책제안실</p>
+    </div>
+    <div class="tile is-child box button is-medium is-fullwidth is-warning">
+      <p class="title has-text-white">자료실</p>
+    </div>
+  </div>
+  <div class="tile is-parent">
+    <div class="tile is-child box">
+      <p class="title has-text-centered"> <img src="{% static 'main.jpeg' %}" width="80%"></p>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="columns is-vcentered is-centered" style="margin-top: 20px;">
+     
+</div>
+</div>
+</section>
 
 {% endblock %}
