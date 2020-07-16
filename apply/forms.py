@@ -31,17 +31,18 @@ class ApplyForm(forms.Form):
         )
     )
     
-    birth_date = forms.DateField(required=True,
+    birth_date = forms.DateField(required=True, initial='1970-01-01',
         error_messages={
             'required': '생년월일을 YYYY-MM-DD 형태로 입력해주세요',
             'invalid': '생년월일을 YYYY-MM-DD 형태로 입력해주세요'
         },
     widget=forms.DateInput(
         attrs={
+            'type': 'date',
             'class': 'input',
-            'id': 'from-datepicker',
+            'id': 'date',
             'placeholder': 'YYYY-MM-DD 생년월일을 입력해주세요',
-        }
+            }
     ), label="생년월일"
     )
 

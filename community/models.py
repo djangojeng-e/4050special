@@ -20,10 +20,6 @@ class Community_Post(models.Model):
     dislike_counts = models.IntegerField(default=0, verbose_name='싫어요 갯수')
     is_announcement = models.BooleanField(null=True, verbose_name='공지사항?')
 
-    # def get_author(self):
-    #     author_name = User.objects.get(username=request.user.username)
-    #     return author_name
-
     def lapsed_time(self):
         date_format = "%m-%d-%Y %H:%M:%S"
         now = timezone.localtime()
@@ -60,7 +56,7 @@ class Comments(models.Model):
 class Likes(models.Model):
     post = models.ForeignKey(Community_Post, on_delete=models.CASCADE)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-
+    
 
 class Dislikes(models.Model):  
     post = models.ForeignKey(Community_Post, on_delete=models.CASCADE)
@@ -71,4 +67,4 @@ class viewed(models.Model):
     post = models.ForeignKey(Community_Post, on_delete=models.CASCADE)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
 
-    
+

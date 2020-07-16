@@ -30,7 +30,24 @@ DEBUG = True
 ALLOWED_HOSTS = [
     '3.34.197.8',
     '127.0.0.1',
+    'ec2-3-34-197-8.ap-northeast-2.compute.amazonaws.com',
 ]
+
+
+# django-storages 
+# django filestorages set to S3Boto3Storage (AWS S3)
+
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_ACCESS_KEY_ID = SECRETS["AWS_ACCESS_KEY_ID"]
+AWS_SECRET_ACCESS_KEY = SECRETS["AWS_SECRET_ACCESS_KEY"]
+AWS_STORAGE_BUCKET_NAME = '4050special'
+AWS_S3_REGION_NAME = 'ap-northeast-2'
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.%s.amazonaws.com' % (AWS_STORAGE_BUCKET_NAME, AWS_S3_REGION_NAME)
+
+AWS_AUTO_CREATE_BUCKET = True
+AWS_DEFAULT_ACL = 'public-read'
+AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
 
 
 # Application definition
@@ -42,6 +59,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # storages 
+    'storages',
 
     'apply',
     'community',
@@ -130,5 +150,16 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+
+PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
+STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
+AWS_LOCATION = 'static'
+STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_DIRS = [STATIC_URL]
+
+# Media Root 설정 
+# user-uploaded static files 의 기본 경로 
+MEDIA_ROOT = os.path.join(BASE_DIR, '.media')
+MEDIA_URL = '/media/'
