@@ -57,95 +57,9 @@
 </div>
 
 <!--tabs-->
-{% for community_post in community_post %}
-
-{% if community_post.is_announcement %}
-<article class="media" style="padding-top:10px;">
-  <figure class="media-left">
-    <p class="image is-64x64">
-      <img src="{% static 'icons/icon_party.png' %}">
-    </p>
-  </figure>
-  <div class="media-content">
-    <div class="content">
-      <p>
-        <strong>{{ community_post.writer }}</strong> 
-        <span style="padding-left: 40px;"><small>{{ community_post.date_created }}<small class="has-text-info" style="margin-left: 20px;"> {% if community_post.lapsed_time < 24 %} &#9;{{ community_post.lapsed_time }} hours ago (new){% else %}{% endif %}</small></small> </span>
-        <br>
-        <span>[공지] {{ community_post.title|truncatechars:40 }}</span> <span class="icon is-small"> <i class="fas fa-microphone"></i> </span>
-      </p>
-    </div>
-    <nav class="level is-mobile">
-      <div class="level-left">
-        <a class="level-item">
-          <span class="icon is-small"><i class="fas fa-thumbs-up"></i></span>
-        </a>
-        <span>{{ community_post.like_counts }}</span>
-        <a class="level-item" style="padding-left: 20px;">
-          <span class="icon is-small"><i class="fas fa-thumbs-down"></i></span>
-        </a>
-        <span>{{ community_post.dislike_counts }}</span>
-        <a class="level-item" style="padding-left: 20px;">
-          <span class="icon is-small"><i class="fas fa-comments"></i></span>
-        </a>
-        <span>{{ community_post.comments_counts }}</span>
-
-        <a class="level-item" style="padding-left: 20px;">
-          <span class="icon is-small"><i class="fas fa-book"></i></span>
-        </a>
-        <span>{{ community_post.post_views }}</span>
-      </div>
-      
-    </nav>
-  </div>
-  
-</article>
-{% else %}
-
-<article class="media" style="padding-top:10px;">
-  <figure class="media-left">
-    <p class="image is-64x64">
-      <img src="{% static 'icons/icon_user.png' %}">
-    </p>
-  </figure>
-  <div class="media-content">
-    <div class="content">
-      <p>
-        <strong>{{ community_post.writer }}</strong> 
-        <span style="padding-left: 40px;"><small>{{ community_post.date_created }}<small class="has-text-info" style="margin-left: 20px;"> {% if community_post.lapsed_time < 24 %} &#9;새글입니다{% else %}{% endif %}</small></small> </span>
-        <br>
-        <span><strong>제목:</strong> {{ community_post.title|truncatechars:50 }}</span> 
-      </p>
-    </div>
-    <nav class="level is-mobile">
-      <div class="level-left">
-        <a class="level-item">
-          <span class="icon is-small"><i class="fas fa-thumbs-up"></i></span>
-        </a>
-        <span>{{ community_post.like_counts }}</span>
-        <a class="level-item" style="padding-left: 20px;" href="like/{{ community_post.id }}">
-          <span class="icon is-small"><i class="fas fa-thumbs-down"></i></span>
-        </a>
-        <span>{{ community_post.dislike_counts }}</span>
-        <a class="level-item" style="padding-left: 20px;" href="dislike/{{ community_post.id }}">
-          <span class="icon is-small"><i class="fas fa-comments"></i></span>
-        </a>
-        <span>{{ community_post.comments_counts }}</span>
-
-        <a class="level-item" style="padding-left: 20px;">
-          <span class="icon is-small"><i class="fas fa-book"></i></span>
-        </a>
-        <span>{{ community_post.post_views }}</span>
-      </div>
-      
-    </nav>
-  </div>
-  
-</article>
 
 
-{% endif %}
-{% endfor %}
+<!-- start of writing form -->
 
 {% if request.user.is_authenticated %}
 
@@ -193,6 +107,110 @@
 글을 입력하시려면, 로그인 해주세요~</h1>
 
 {% endif %}
+
+<!-- end of writing form -->
+
+
+{% for community_post in community_post %}
+
+
+<!-- 공지사항 --> 
+{% if community_post.is_announcement %}
+<article class="media" style="padding-top:10px;">
+  <figure class="media-left">
+    <p class="image is-64x64">
+      <img src="{% static 'icons/icon_party.png' %}">
+    </p>
+  </figure>
+  <div class="media-content">
+    <div class="content">
+      <p>
+        <strong>{{ community_post.writer }}</strong> 
+        <span style="padding-left: 40px;"><small>{{ community_post.date_created }}<small class="has-text-info" style="margin-left: 20px;"> {% if community_post.lapsed_time < 24 %} &#9;새글입니다{% else %}{% endif %}</small></small> </span>
+        <br>
+        <span><strong>[공지]</strong> {{ community_post.title|truncatechars:40 }}</span> <span class="icon is-small"> <i class="fas fa-microphone"></i> </span>
+      </p>
+      <p>{{ community_post.content|truncatechars:60 }}</p>
+    </div>
+    <nav class="level is-mobile">
+      <div class="level-left">
+        <a class="level-item" href="like/{{ community_post.id }}">
+          <span class="icon is-small"><i class="fas fa-thumbs-up"></i></span>
+        </a>
+        <span>{{ community_post.like_counts }}</span>
+        <a class="level-item" style="padding-left: 20px;" href="dislike/{{ community_post.id }}">
+          <span class="icon is-small"><i class="fas fa-thumbs-down"></i></span>
+        </a>
+        <span>{{ community_post.dislike_counts }}</span>
+        <a class="level-item" style="padding-left: 20px;">
+          <span class="icon is-small"><i class="fas fa-comments"></i></span>
+        </a>
+        <span>{{ community_post.comments_counts }}</span>
+
+        <a class="level-item" style="padding-left: 20px;">
+          <span class="icon is-small"><i class="fas fa-book"></i></span>
+        </a>
+        <span>{{ community_post.post_views }}</span>
+      </div>
+      
+    </nav>
+  </div>
+  
+</article>
+<!-- 공지사항 -->
+
+<!--일반 suggestion --> 
+
+{% else %}
+
+
+
+
+<article class="media" style="padding-top:10px;">
+  <figure class="media-left">
+    <p class="image is-64x64">
+      <img src="{% static 'icons/icon_user.png' %}">
+    </p>
+  </figure>
+  <div class="media-content">
+    <div class="content">
+      <p>
+        <strong>{{ community_post.writer }}</strong> 
+        <span style="padding-left: 40px;"><small>{{ community_post.date_created }}<small class="has-text-info" style="margin-left: 20px;"> {% if community_post.lapsed_time < 24 %} &#9;새글입니다{% else %}{% endif %}</small></small> </span>
+        <br>
+        <span><strong>제목:</strong> {{ community_post.title|truncatechars:50 }}</span> 
+      </p>
+    </div>
+    <nav class="level is-mobile">
+      <div class="level-left">
+        <a class="level-item" href="like/{{ community_post.id }}">
+          <span class="icon is-small"><i class="fas fa-thumbs-up"></i></span>
+        </a>
+        <span>{{ community_post.like_counts }}</span>
+        <a class="level-item" style="padding-left: 20px;" href="dislike/{{ community_post.id }}">
+          <span class="icon is-small"><i class="fas fa-thumbs-down"></i></span>
+        </a>
+        <span>{{ community_post.dislike_counts }}</span>
+        <a class="level-item" style="padding-left: 20px;">
+          <span class="icon is-small"><i class="fas fa-comments"></i></span>
+        </a>
+        <span>{{ community_post.comments_counts }}</span>
+
+        <a class="level-item" style="padding-left: 20px;">
+          <span class="icon is-small"><i class="fas fa-book"></i></span>
+        </a>
+        <span>{{ community_post.post_views }}</span>
+      </div>
+      
+    </nav>
+  </div>
+  
+</article>
+<!--일반 suggestion --> 
+
+{% endif %}
+{% endfor %}
+
 
      </div>
 

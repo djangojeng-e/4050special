@@ -29,7 +29,6 @@ class Community_Post(models.Model):
         time_difference = int(now_hour) - int(created_hour)
         time_difference = abs(time_difference)
         return time_difference
-        
 
     def comments_counts(self):
         comments = self.comments_set.all()
@@ -44,7 +43,7 @@ class Community_Post(models.Model):
 
 class Comments(models.Model):
     post = models.ForeignKey(Community_Post, on_delete=models.CASCADE)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField()
 
     class Meta:
@@ -55,16 +54,16 @@ class Comments(models.Model):
 
 class Likes(models.Model):
     post = models.ForeignKey(Community_Post, on_delete=models.CASCADE)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     
 
 class Dislikes(models.Model):  
     post = models.ForeignKey(Community_Post, on_delete=models.CASCADE)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
 class viewed(models.Model):
     post = models.ForeignKey(Community_Post, on_delete=models.CASCADE)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
