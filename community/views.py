@@ -1,8 +1,10 @@
 from django.shortcuts import render, HttpResponse, HttpResponseRedirect, redirect, reverse
-from .models import Community_Post, Likes, Dislikes
+from .models import Community_Post, Likes, Dislikes, Comments
 from .forms import CommunicationForm
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
+from django.views.generic import ListView
+
 # Create your views here.
 
 
@@ -66,4 +68,39 @@ def post_dislike(request, pk):
         post.dislike_counts =+ 1
         post.save()
         return HttpResponseRedirect(reverse('community_page'))
+
+
+class SortbyAnnouncement(ListView): 
+    queryset = Community_Post.objects.filter(is_announcement=True).order_by('-id')
+    context_object_name = 'community_post'
+    paginate_by = 5
+    template_name = 'community/sort/community_announcement.html'
+
+
+class SortbyDatecreated(ListView):
+    queryset = Community_Post.objects.all().order_by('-date_created')
+    context_object_name = 'community_post'
+    paginate_by = 5
+    template_name = 'community/sort/community_date_created.html' 
+
+
+class SortbyComments(ListView):
+    queryset = Community_Post.objects.all().order_by('-comment_counts')
+    context_object_name = 'community_post'
+    paginate_by = 5 
+    template_name = 'community/sort/community_comment_counts.html' 
+
+
+class SortbyLikes(ListView):
+    queryset = Community_Post.objects.all().order_by('-like_counts')
+    context_object_name = 'community_post'
+    paginate_by = 5
+    template_name = 'community/sort/community_like_counts.html' 
+
+
+class SortbyViews(ListView):
+    queryset = Community_Post.objects.all().order_by('-post_views')
+    context_object_name = 'community_post'
+    paginate_by = 5 
+    template_name = 'community/sort/community_view_counts.html' 
 

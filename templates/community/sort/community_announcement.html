@@ -19,7 +19,11 @@
      <div class="column is-8">
 
      <div class="tabs is-centered is-boxed is-small">
-  <ul>
+  <ul><li class="is-active">
+      <a href="{% url 'community_page' %}">
+        <span>전체</span>
+      </a>
+    </li>
   <li class="is-active">
       <a href="{% url 'community_announcement' %}">
         <span class="icon is-small"><i class="fas fa-bullhorn" aria-hidden="true"></i></span>
@@ -58,52 +62,6 @@
 
 <!-- start of writing form -->
 
-{% if request.user.is_authenticated %}
-
-<article class="media">
-  <figure class="media-left">
-    <p class="image is-64x64">
-      <img src="{% static 'icons/icon_user.png' %}">
-    </p>
-  </figure>
-  <div class="media-content">
-
-
-<form action="{% url 'community_page' %}" method="POST">
-{% csrf_token %}
-
-<input type="hidden" value="{{ request.user.username }}" id="writer">
-<input type="hidden" value="{{ request.user.username }}" id="author">
-
- {% for field in form %}
-
-    <div class="field">
-      <p class="control">
-        {{ field }} {{ field.errors }}
-      </p>
-    </div>
-
-
-{% endfor %}
-    <div class="control">
-    <button class="button is-link">글쓰기</button>
-    <a href="/">
-    <button class="button is-link is-light">취소하기</button>
-    </a>
-  </div>
-  
-
- </form>
-    
-  </div>
-</article>
-
-{% else %}
-
-<h1 class="has-text-link is-size-6 has-text-centered" style="margin-bottom: 50px; margin-top: 100px;">
-글을 입력하시려면, 로그인 해주세요~</h1>
-
-{% endif %}
 
 <!-- end of writing form -->
 
@@ -230,18 +188,6 @@
 
     {% endif %}
     </div>
-{% comment %} 
-  <a class="pagination-next">Next page</a>
-  <ul class="pagination-list">
-    <li><a class="pagination-link" aria-label="Goto page 1">1</a></li>
-    <li><span class="pagination-ellipsis">&hellip;</span></li>
-    <li><a class="pagination-link" aria-label="Goto page 45">45</a></li>
-    <li><a class="pagination-link is-current" aria-label="Page 46" aria-current="page">46</a></li>
-    <li><a class="pagination-link" aria-label="Goto page 47">47</a></li>
-    <li><span class="pagination-ellipsis">&hellip;</span></li>
-    <li><a class="pagination-link" aria-label="Goto page 86">86</a></li>
-  </ul> {% endcomment %}
-
 
 
      </div>

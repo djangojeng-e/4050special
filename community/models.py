@@ -19,6 +19,8 @@ class Community_Post(models.Model):
     like_counts = models.IntegerField(default=0, verbose_name='좋아요 갯수')
     dislike_counts = models.IntegerField(default=0, verbose_name='싫어요 갯수')
     is_announcement = models.BooleanField(null=True, verbose_name='공지사항?')
+    comment_counts = models.IntegerField(default=0, verbose_name="댓글수")
+
 
     def lapsed_time(self):
         date_format = "%m-%d-%Y %H:%M:%S"
