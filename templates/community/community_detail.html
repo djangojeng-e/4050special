@@ -57,20 +57,10 @@
   </ul>
 </div>
 
-<!--tabs-->
+<!--tabs end -->
 
 
-<!-- start of writing form -->
-
-
-<!-- end of writing form -->
-
-
-{% for community_post in community_post %}
-
-
-<!-- 공지사항 --> 
-{% if community_post.is_announcement %}
+<!-- detail start --> 
 <article class="media" style="padding-top:10px;">
   <figure class="media-left">
     <p class="image is-64x64">
@@ -78,17 +68,15 @@
     </p>
   </figure>
   <div class="media-content">
-   <a href="detail/{{ community_post.id }}">
     <div class="content">
       <p>
         <strong>{{ community_post.writer }}</strong> 
-        <span style="padding-left: 40px;"><small>{{ community_post.date_created }}<small class="has-text-info" style="margin-left: 20px;"> {% if community_post.lapsed_time < 12 %} &#9;새글입니다{% else %}{% endif %}</small></small> </span>
+        <span style="padding-left: 40px;"><small>{{ community_post.date_created }} 에 작성<small class="has-text-info" style="margin-left: 20px;"> {% if community_post.lapsed_time < 12 %} &#9;새글입니다{% else %}{% endif %}</small></small> </span>
         <br>
-        <span><strong>[공지]</strong> {{ community_post.title|truncatechars:40 }}</span> <span class="icon is-small"> <i class="fas fa-microphone"></i> </span>
+        <span><strong>{{ community_post.title }} </strong></span> <span class="icon is-small"> <i class="fas fa-microphone"></i> </span>
       </p>
-      <p>{{ community_post.content|truncatechars:60 }}</p>
+      <textarea class="input">{{ community_post.content }}</textarea>
     </div>
-    </a>
     <nav class="level is-mobile">
       <div class="level-left">
         <a class="level-item" href="like/{{ community_post.id }}">
@@ -102,7 +90,7 @@
         <a class="level-item" style="padding-left: 20px;">
           <span class="icon is-small"><i class="fas fa-comments"></i></span>
         </a>
-        <span>{{ community_post.comments_counts }}</span>
+        <span>{{ community_post.comment_counts }}</span>
 
         <a class="level-item" style="padding-left: 20px;">
           <span class="icon is-small"><i class="fas fa-book"></i></span>
@@ -114,15 +102,14 @@
   </div>
   
 </article>
-<!-- 공지사항 -->
 
-<!--일반 suggestion --> 
+<!-- detail end --> 
 
-{% else %}
-
+<!-- comments start --> 
 
 
-
+{% if comments %}
+{% for comment in comments %}
 <article class="media" style="padding-top:10px;">
   <figure class="media-left">
     <p class="image is-64x64">
@@ -130,75 +117,75 @@
     </p>
   </figure>
   <div class="media-content">
-   <a href="detail/{{ community_post.id }}">
+      
+      
     <div class="content">
       <p>
-        <strong>{{ community_post.writer }}</strong> 
-        <span style="padding-left: 40px;"><small>{{ community_post.date_created }}<small class="has-text-info" style="margin-left: 20px;"> {% if community_post.lapsed_time < 12 %} &#9;새글입니다{% else %}{% endif %}</small></small> </span>
-        <br>
-        <span><strong>제목:</strong> {{ community_post.title|truncatechars:50 }}</span> 
+        <strong>{{ comment.user }}</strong> 
+        
+        <span><strong>님이 작성하신 댓글입니다</strong> </span> 
       </p>
+      <p>{{ comment.content }}</p>
     </div>
-    </a>
+     
+    
     <nav class="level is-mobile">
       <div class="level-left">
-        <a class="level-item" href="like/{{ community_post.id }}">
-          <span class="icon is-small"><i class="fas fa-thumbs-up"></i></span>
-        </a>
-        <span>{{ community_post.like_counts }}</span>
-        <a class="level-item" style="padding-left: 20px;" href="dislike/{{ community_post.id }}">
-          <span class="icon is-small"><i class="fas fa-thumbs-down"></i></span>
-        </a>
-        <span>{{ community_post.dislike_counts }}</span>
-        <a class="level-item" style="padding-left: 20px;">
-          <span class="icon is-small"><i class="fas fa-comments"></i></span>
-        </a>
-        <span>{{ community_post.comments_counts }}</span>
-
-        <a class="level-item" style="padding-left: 20px;">
-          <span class="icon is-small"><i class="fas fa-book"></i></span>
-        </a>
-        <span>{{ community_post.post_views }}</span>
+        
       </div>
       
     </nav>
   </div>
   
 </article>
-<!--일반 suggestion --> 
-
-{% endif %}
 {% endfor %}
 
-<div class="columns is-centered has-text-centered mt-5">
-    {% if page_obj.has_previous %}
-      <a href="?page=1">&laquo; first</a>
-      <a class="pagination-previous" href="?page={{ page_obj.previous_page_number }}">previous</a>
-    {% endif %}
+{% endif %}
 
-    <span class="current">
-    <ul class="pagination-list">
-      <li><a class="pagination-link">Page {{ page_obj.number }} </a> </li> 
-      <li><span class="pagination-ellipsis">&hellip;</span></li>
-      <li>of</li> 
-      <li><span class="pagination-ellipsis">&hellip;</span></li>
-      <li><a class="pagination-link">{{ page_obj.paginator.num_pages }}.</a></li>
-    </ul>
-  
+<!-- comments create start --> 
 
-    {% if page_obj.has_next %}
-      <a href="?page={{ page_obj.next_page_number }}">next</a>
-      <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+{% if request.user.is_authenticated %}
 
-    {% endif %}
+<article class="media">
+  <figure class="media-left">
+    <p class="image is-64x64">
+      <img src="{% static 'icons/icon_user.png' %}">
+    </p>
+  </figure>
+  <div class="media-content">
+
+
+<form action="" method="POST">
+{% csrf_token %}
+
+ {% for field in form %}
+
+    <div class="field">
+      <p class="control">
+        {{ field }} {{ field.errors }}
+      </p>
     </div>
 
 
-     </div>
+{% endfor %}
+    <div class="control">
+    <button class="button is-link">댓글쓰기</button>
+    <a href="/">
+    <button class="button is-link is-light">취소하기</button>
+    </a>
+  </div>
+  
 
+ </form>
+    
+  </div>
+</article>
+<!--comments create end --> 
 
-     <div class="column is-2"></div>
-    </div>  
+{% else %}
+
+{% endif %}
+
 
 
 {% endblock %}

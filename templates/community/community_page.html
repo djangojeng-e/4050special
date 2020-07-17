@@ -120,6 +120,7 @@
     </p>
   </figure>
   <div class="media-content">
+      <a href="detail/{{ community_post.id }}">
     <div class="content">
       <p>
         <strong>{{ community_post.writer }}</strong> 
@@ -129,6 +130,7 @@
       </p>
       <p>{{ community_post.content|truncatechars:60 }}</p>
     </div>
+      </a>
     <nav class="level is-mobile">
       <div class="level-left">
         <a class="level-item" href="like/{{ community_post.id }}">
@@ -170,6 +172,7 @@
     </p>
   </figure>
   <div class="media-content">
+  <a href="detail/{{ community_post.id }}">
     <div class="content">
       <p>
         <strong>{{ community_post.writer }}</strong> 
@@ -178,6 +181,7 @@
         <span><strong>제목:</strong> {{ community_post.title|truncatechars:50 }}</span> 
       </p>
     </div>
+    </a>
     <nav class="level is-mobile">
       <div class="level-left">
         <a class="level-item" href="like/{{ community_post.id }}">
@@ -230,17 +234,6 @@
 
     {% endif %}
     </div>
-{% comment %} 
-  <a class="pagination-next">Next page</a>
-  <ul class="pagination-list">
-    <li><a class="pagination-link" aria-label="Goto page 1">1</a></li>
-    <li><span class="pagination-ellipsis">&hellip;</span></li>
-    <li><a class="pagination-link" aria-label="Goto page 45">45</a></li>
-    <li><a class="pagination-link is-current" aria-label="Page 46" aria-current="page">46</a></li>
-    <li><a class="pagination-link" aria-label="Goto page 47">47</a></li>
-    <li><span class="pagination-ellipsis">&hellip;</span></li>
-    <li><a class="pagination-link" aria-label="Goto page 86">86</a></li>
-  </ul> {% endcomment %}
 
 
 

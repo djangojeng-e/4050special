@@ -78,6 +78,7 @@
     </p>
   </figure>
   <div class="media-content">
+  <a href="detail/{{ community_post.id }}">
     <div class="content">
       <p>
         <strong>{{ community_post.writer }}</strong> 
@@ -87,6 +88,7 @@
       </p>
       <p>{{ community_post.content|truncatechars:60 }}</p>
     </div>
+    </a>
     <nav class="level is-mobile">
       <div class="level-left">
         <a class="level-item" href="like/{{ community_post.id }}">
@@ -127,6 +129,7 @@
       <img src="{% static 'icons/icon_user.png' %}">
     </p>
   </figure>
+  <a href="detail/{{ community_post.id }}">
   <div class="media-content">
     <div class="content">
       <p>
@@ -136,6 +139,7 @@
         <span><strong>제목:</strong> {{ community_post.title|truncatechars:50 }}</span> 
       </p>
     </div>
+    </a>
     <nav class="level is-mobile">
       <div class="level-left">
         <a class="level-item" href="like/{{ community_post.id }}">

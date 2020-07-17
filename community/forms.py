@@ -42,3 +42,16 @@ class CommunicationForm(forms.Form):
             'placeholder': '소통 내용을 입력해 주세요'
         }))
 
+
+class CommentsForm(forms.Form):
+    comment = forms.CharField(max_length=100,
+    error_messages={
+        'required': '댓글을 입력해주세요',
+        'invallid': '댓글이 너무 깁니다. 100자 이내로 써주세요',
+    },
+    widget=forms.TextInput(
+        attrs={
+            'class': 'input', 
+            'placeholder': '댓글을 입력해주세요',
+        }
+    )) 

@@ -1,9 +1,9 @@
 from django.shortcuts import render, HttpResponse, HttpResponseRedirect, redirect, reverse
-from .models import Community_Post, Likes, Dislikes, Comments
-from .forms import CommunicationForm
+from .models import Community_Post, Likes, Dislikes, Comments, viewed
+from .forms import CommunicationForm, CommentsForm
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 
 # Create your views here.
 
@@ -103,4 +103,32 @@ class SortbyViews(ListView):
     context_object_name = 'community_post'
     paginate_by = 5 
     template_name = 'community/sort/community_view_counts.html' 
+
+
+def PostDetail(request, pk): 
+    user= request.user 
+    post = Community_Post.objects.get(id=pk)
+    if request.method == 'POST': 
+        form = CommentsForm(request.POST)
+        if form.is_valid():
+            content = form.cleaned_data['comment']
+            comment = Comments(post=post, user=user, content=content)
+            comment.save()
+            community_post = post
+            comments = Comments.objects.filter(post=post)
+            return render(request, 'community/community_detail.html', {'community_post': post, 'comments': comments, 'form': form})
+    else:
+        form = CommentsForm()
+        if viewed.objects.filter(post=post, user=user):
+            pass
+        else:
+            view = viewed(post=post, user=user)
+            view.save() 
+            post.post_views += 1 
+            post.save()
+
+        community_post = post
+        comments = Comments.objects.filter(post=post)
+    
+        return render(request, 'community/community_detail.html', {'community_post': post, 'comments': comments, 'form': form})
 
