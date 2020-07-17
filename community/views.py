@@ -2,12 +2,12 @@ from django.shortcuts import render, HttpResponse, HttpResponseRedirect, redirec
 from .models import Community_Post, Likes, Dislikes
 from .forms import CommunicationForm
 from django.contrib.auth.models import User
+from django.core.paginator import Paginator
 # Create your views here.
 
 
 def community_page(request):
     if request.method == "POST":
-        community_post = Community_Post.objects.all().order_by('-id')
         form = CommunicationForm(request.POST)
         if form.is_valid():
             writer = User.objects.get(username=request.user.username)
@@ -24,12 +24,21 @@ def community_page(request):
             post.save()
             
             community_post = Community_Post.objects.all().order_by('-id')
+            paginator = Paginator(community_post, 10)
+
+            page_number = request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
+            return render(request, 'community/community_page.html', {'community_post': community_post, 'form': form, 'page_obj': page_obj})
         else:
             return HttpResponse('에러') 
     else:
         form = CommunicationForm()
         community_post = Community_Post.objects.all().order_by('-id')
-        return render(request, 'community/community_page.html', {'community_post': community_post, 'form': form})
+        paginator = Paginator(community_post, 10)
+
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        return render(request, 'community/community_page.html', {'community_post': community_post, 'form': form, 'page_obj': page_obj})
     return render(request, 'community/community_page.html', {'community_post': community_post, 'form': form})
 
 
