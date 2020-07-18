@@ -5,7 +5,8 @@ from .models import Members
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth import authenticate, login, logout 
 from django.contrib.auth.models import User
-
+# csv export 
+import csv
 
 
 # Create your views here.
@@ -100,3 +101,29 @@ def logout_view(request):
 
 def terms_and_conditions(request):
     return render(request, 'apply/terms_and_conditions.html')
+
+
+def export_csv(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment;filename="members.csv"'
+    writer = csv.writer(response)
+    writer.writerow(['이름', '사용자닉네임', '생년월일', '주소', 
+                     '거주국가', '직업/경력', '국적',
+                     '국적소지국가', '국가번호',
+                     '전화번호',
+                     '이메일',
+                     '당원여부',
+                     '위원회 임원여부'])
+    members = Members.objects.all().values_list(
+        'name', 'nick_name', 'birth_date', 'address', 
+        'country_residence', 'occupation', 'nationality',
+        'nationality_country', 'phone_country_code',
+        'phone_number',
+        'email',
+        'member_level',
+        'is_member_staff'
+    )
+    for member in members:
+        writer.writerow(member)
+    return response
+

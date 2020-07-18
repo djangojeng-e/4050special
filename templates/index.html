@@ -17,14 +17,17 @@
 <div class="tile is-ancestor mt-6">
   <div class="tile is-4 is-vertical is-parent">
   <a href="{% url 'application' %}" class="tile is-child box button is-medium is-fullwidth is-primary">
-    {% comment %} <div class="tile is-child box button is-medium is-fullwidth is-primary"> {% endcomment %}
       <p class="title is-child has-text-white mt-1">온라인 가입</p>
-    {% comment %} </div> {% endcomment %}
     </a>
+
+  {% if request.user.is_superuser %}
+   <a href="{% url 'members_to_csv' %}" class="tile is-child box button is-medium is-fullwidth is-primary">
+      <p class="title is-child has-text-white mt-1">위원명단 엑셀파일</p>
+    </a>
+  {% endif %}
+
     <a href="{% url 'community_page' %}" class="tile is-child box button is-medium is-fullwidth is-info">
-    {% comment %} <div class="tile is-child box button is-medium is-fullwidth is-info"> {% endcomment %}
       <p class="title has-text-white mt-1">소통실</p>
-    {% comment %} </div> {% endcomment %}
     </a>
     <a href="#" class="tile is-child box button is-medium is-fullwidth is-link">
       <p class="title has-text-white mt-1">정책제안실</p>
