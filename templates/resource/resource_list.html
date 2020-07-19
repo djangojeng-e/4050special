@@ -9,6 +9,37 @@
 
 
 <h1 class="has-text-link is-size-2 has-text-centered" style="margin-bottom: 50px; margin-top: 100px;">4050특별위원회 자료실</h1>
+<br>
+<hr>
+{% for resource in resources %}
+<div class="columns">
+     <div class="column is-1"></div>
+     
+     <div class="column is-5 pl-1 pr-1 has-text-centered">
+     
+     <img src="{{ resource.resourceimages_set.last.images.url }}" alt="Image" width="50%"><br>
+       
+
+        {{ request.user.username }}, {{ resource.date_created }}
+      </div>
+
+
+     <div class="column is-5 has-text-centered">
+     <div class="pt-4">
+     <h1 class="has-text-primary pt-2">{{ resource.title }}</h1>
+
+    <br>
+     <h2 class="has-text-info pt-2"><span class="icon is-small"><i class="fas fa-book" aria-hidden="true"></i></span>
+        <span>조회수 {{ resource.view_counts }}</span></h2>
+     </div>
+      </div>
+     
+     <div class="column is-1"></div>  
+
+  
+</div>
+<hr>
+{% endfor %}
 
 
 

@@ -163,3 +163,4 @@ STATICFILES_DIRS = [STATIC_URL]
 # user-uploaded static files 의 기본 경로 
 MEDIA_ROOT = os.path.join(BASE_DIR, '.media')
 MEDIA_URL = '/media/'
+

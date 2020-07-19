@@ -29,10 +29,10 @@
     <a href="{% url 'community_page' %}" class="tile is-child box button is-medium is-fullwidth is-info">
       <p class="title has-text-white mt-1">소통실</p>
     </a>
-    <a href="#" class="tile is-child box button is-medium is-fullwidth is-link">
+    {% comment %} <a href="#" class="tile is-child box button is-medium is-fullwidth is-link">
       <p class="title has-text-white mt-1">정책제안실</p>
-    </a>
-    <a href="#" class="tile is-child box button is-medium is-fullwidth is-warning">
+    </a> {% endcomment %}
+    <a href="{% url 'resource_list' %}" class="tile is-child box button is-medium is-fullwidth is-warning">
       <p class="title has-text-white mt-1">자료실</p>
     </a>
   </div>
