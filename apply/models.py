@@ -44,7 +44,7 @@ class Members(models.Model):
         return user_name
 
     def __str__(self):
-        return f'{self.name}, {self.birth_date}, {self.address}, {self.country_residence}, {self.occupation}, {self.nationality}, {self.phone_number}, {self.email}, {self.member_level}'
+        return f'{self.nick_name}'
 
     class Meta:
         verbose_name = "4050자문위원"

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %} 
+
+{% block title %} 자료 디테일 {% endblock %}
+
+{% block head %} {% endblock %}
+
+{% block content %} 
+
+    
+<div class="columns has-text-centered is-vcentered" style="margin-top: 100px;">
+     <div class="column is-3"></div>
+     <div class="column is-6 is-size-3">  <strong><p class="has-text-info has-text-info is-size-3"> 제목 : {{ resource.title }}</p> 
+     <p style="margin-top:20px;" class="is-size-2">{{ resource.author }} </p></strong>
+     <p class="has-text-link is-size-3" style="margin-top:30px;">
+     {{ resource.date_created }} 작성
+     </p>
+     <hr>
+     <p class="is-size-3" style="margin-top:30px;">
+     {{ resource.content }}
+     </p>
+     <br>
+     {% for image in resource.resourceimages_set.all %}
+        <img src="{{image.images.url}}" width="50%">
+
+     {% endfor %} 
+     </div>
+     <div class="column is-3"></div>
+    </div>
+
+{% endblock %}

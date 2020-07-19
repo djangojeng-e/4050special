@@ -12,6 +12,7 @@
 <br>
 <hr>
 {% for resource in resources %}
+<a href="detail/{{ resource.id }}">
 <div class="columns">
      <div class="column is-1"></div>
      
@@ -25,19 +26,26 @@
 
 
      <div class="column is-5 has-text-centered">
-     <div class="pt-4">
-     <h1 class="has-text-primary pt-2">{{ resource.title }}</h1>
+  
+     <h1 class="has-text-primary pt-2 is-size-4">{{ resource.title }}</h1>
 
     <br>
      <h2 class="has-text-info pt-2"><span class="icon is-small"><i class="fas fa-book" aria-hidden="true"></i></span>
-        <span>조회수 {{ resource.view_counts }}</span></h2>
+        <span>조회수 {{ resource.view_counts }}</span><br>
+        
+       
+        </h2>
+
+      <div class="button is-info" style="margin-top: 100px;">자료보기</div>
+        
      </div>
-      </div>
+      
      
      <div class="column is-1"></div>  
 
   
 </div>
+</a>
 <hr>
 {% endfor %}
 
