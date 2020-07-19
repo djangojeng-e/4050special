@@ -21,7 +21,7 @@
     </a>
 
   {% if request.user.is_superuser %}
-   <a href="{% url 'members_to_csv' %}" class="tile is-child box button is-medium is-fullwidth is-primary">
+   <a href="{% url 'members_to_csv' %}" class="tile is-child box button is-medium is-fullwidth is-danger">
       <p class="title is-child has-text-white mt-1">위원명단 엑셀파일</p>
     </a>
   {% endif %}
