@@ -157,10 +157,11 @@ USE_TZ = True
 
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
+
 AWS_LOCATION = 'static'
 STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-STATICFILES_DIRS = [STATIC_URL]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 print(STATIC_ROOT)
 print(STATIC_URL)
 # Media Root 설정 
